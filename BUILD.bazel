@@ -1,15 +1,22 @@
 load("@org_pubref_rules_protobuf//python:rules.bzl", "py_proto_library")
+load("@pip_requirements//:requirements.bzl", "requirement")
 
 py_binary(
     name = "client",
     srcs = ["client.py"],
-    deps = [":py_proto"],
+    deps = [
+        ":py_proto",
+        requirement("grpcio"),
+    ],
 )
 
 py_binary(
     name = "server",
     srcs = ["server.py"],
-    deps = [":py_proto"],
+    deps = [
+        ":py_proto",
+        requirement("grpcio"),
+    ],
 )
 
 filegroup(

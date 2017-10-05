@@ -1,7 +1,7 @@
 import argparse
-import asyncio
 from concurrent import futures
 import grpc
+import signal
 
 import timestamp_service_pb2
 import timestamp_service_pb2_grpc
@@ -35,15 +35,9 @@ def main():
                                                                       timestamp_server)
     timestamp_server.add_insecure_port('[::]:{}'.format(args.port))
 
-    print("Starting Timestamp server...")
+    print("Running Timestamp server...")
     timestamp_server.start()
-
-    try:
-        print("Running...")
-        main_event_loop = asyncio.get_event_loop()
-        main_event_loop.run_forever()
-    except (KeyboardInterrupt, SystemExit):
-        print("Exiting...")
+    signal.pause()
 
 
 if __name__ == "__main__":
