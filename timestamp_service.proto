@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package timestamp_service;
+
+// NOTE: This depends on both googleapis and google well_known_protos.
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+service TimestampService {
+
+  rpc Timestamp(TimestampRequest) returns (TimestampReply) {
+    option (google.api.http) = {
+      post: "/v1/timestamp"
+      body: "*"
+    };
+  }
+}
+
+message TimestampRequest {}
+
+message TimestampReply {
+  google.protobuf.Timestamp timestamp = 1;
+}
