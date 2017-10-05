@@ -1,6 +1,8 @@
 import argparse
+import grpc
 
 import timestamp_service_pb2
+import timestamp_service_pb2_grpc
 
 
 def create_arg_parser():
@@ -18,11 +20,11 @@ def main():
     print(args.server)
     print("")
     channel = grpc.insecure_channel(args.server)
-    stub = timestamp_service_pb2.TimestampServiceStub(channel)
+    stub = timestamp_service_pb2_grpc.TimestampServiceStub(channel)
     request = timestamp_service_pb2.TimestampRequest()
     print("Sending Timestamp request:")
     print("{}\n")
-    reply = timestamp_service_stub.Timestamp(request)
+    reply = stub.Timestamp(request)
     print("Received reply:")
     print(reply)
 
